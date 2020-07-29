@@ -1,0 +1,7 @@
+
+# this will format your cpp file according to clang format
+$ clang-format -i guessing_game.cpp 
+
+# this will show the formating errors without formating the file
+$ clang-format --dray-run -Werror guessing_game.cpp
+
