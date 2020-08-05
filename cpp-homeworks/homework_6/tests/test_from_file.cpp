@@ -26,6 +26,8 @@ TEST(TestImageIO, InitFromFileContents) {
   ASSERT_EQ(10, image.cols());
   for (int r = 0; r < image.rows(); ++r) {
     for (int c = 0; c < image.cols(); ++c) {
+      // std::cout << "at r and c:" << r << "," << c
+      //           << " the pixle value is: " << +image.at(r, c) << std::endl;
       if (r == c) {
         ASSERT_EQ(0, image.at(r, c)) << r << " " << c;
       } else {
