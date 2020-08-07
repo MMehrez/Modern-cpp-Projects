@@ -31,5 +31,11 @@ int main() {
   cout << test_equality
        << endl;  // just to test that unit8_t can be compared with numbers
 
+  igg::Image image;
+  image.FillFromPgm("data/dummy_file.pgm");
+  const auto& image_ref = image;
+  int size = 10;
+  auto histogram = image_ref.ComputeHistogram(size);
+
   return 0;
 }

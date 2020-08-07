@@ -49,6 +49,31 @@ class Image {
     igg::io_tools::WriteToPgm(image_data, file_name);
   }
 
+  std::vector<float> ComputeHistogram(int bins) const {
+    std::vector<float> hist(bins, 0);
+    std::vector<uint8_t> data_copy = data_;
+
+    std::vector<float> ranges(bins, 0);
+    for (int i = 0; i < bins; i++) {
+      ranges[i] = ((i + 1) * 255.0) / bins;
+    }
+    std ::sort(data_copy.begin(), data_copy.end());
+    int counter_range = 0;
+    int counter_freq = 0;
+    for (int j = 0; j < data_copy.size(); j++) {  // range for-loop
+      if (data_copy[j] <= ranges[counter_range]) {
+        counter_freq = counter_freq + 1;
+      } else {
+        hist[counter_range] = float(counter_freq) / data_copy.size();
+        j = j - 1;
+        counter_range = counter_range + 1;
+        counter_freq = 0;
+      }
+    }
+    hist[counter_range] = float(counter_freq) / data_copy.size();
+    return hist;
+  }
+
  private:
   int rows_;
   int cols_;
