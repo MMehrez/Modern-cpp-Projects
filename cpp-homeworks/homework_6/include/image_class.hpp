@@ -2,6 +2,7 @@
 #define IMAGE_CLASS_HPP_
 
 #include <algorithm>
+#include <cmath>
 #include <iostream>
 #include <vector>
 
@@ -44,9 +45,11 @@ class Image {
     image_data.rows = rows_;
     image_data.cols = cols_;
     image_data.data = data_;
-    image_data.max_val = *std::max_element(data_.begin(), data_.end());
-    // bool write_successful =
+    // image_data.max_val = *std::max_element(data_.begin(), data_.end());
+    image_data.max_val = 255;
+    // bool success =
     igg::io_tools::WriteToPgm(image_data, file_name);
+    // std::cout << success << std::endl;
   }
 
   std::vector<float> ComputeHistogram(int bins) const {
@@ -90,7 +93,16 @@ class Image {
   void UpScale(int scale) {
     std::vector<uint8_t> new_data(((rows_ + 1) * scale) * ((cols_ + 1) * scale),
                                   0);
+    for (int r = 0; r < rows_ * scale; ++r) {
+      for (int c = 0; c < cols_ * scale; ++c) {
+        new_data[r * (cols_ * scale) + c] =
+            at(std::floor(r / scale), std::floor(c / scale));
+      }
+    }
     // std::cout << new_data.size() << std::endl;
+    data_ = new_data;
+    rows_ = rows_ * scale;
+    cols_ = cols_ * scale;
   }
 
  private:
