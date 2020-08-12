@@ -73,6 +73,26 @@ class Image {
     return hist;
   }
 
+  void DownScale(int scale) {
+    std::vector<uint8_t> new_data(((rows_ + 1) / scale) * ((cols_ + 1) / scale),
+                                  0);
+    // std::cout << new_data.size() << std::endl;
+    for (int r = 0; r < rows_ / scale; ++r) {
+      for (int c = 0; c < cols_ / scale; ++c) {
+        new_data[r * (cols_ / scale) + c] = at(r * scale, c * scale);
+      }
+    }
+    data_ = new_data;
+    rows_ = rows_ / scale;
+    cols_ = cols_ / scale;
+  }
+
+  void UpScale(int scale) {
+    std::vector<uint8_t> new_data(((rows_ + 1) * scale) * ((cols_ + 1) * scale),
+                                  0);
+    // std::cout << new_data.size() << std::endl;
+  }
+
  private:
   int rows_;
   int cols_;

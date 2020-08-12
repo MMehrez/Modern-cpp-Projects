@@ -6,7 +6,7 @@ add_executable(${TEST_BINARY}
                test_init.cpp
                 test_histogram.cpp
                 test_from_file.cpp
-               # test_resize.cpp
+               test_resize.cpp
                )
 
 target_link_libraries(${TEST_BINARY} image GTest::Main)
