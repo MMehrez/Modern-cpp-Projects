@@ -52,7 +52,6 @@ class Image {
   std::vector<float> ComputeHistogram(int bins) const {
     std::vector<float> hist(bins, 0);
     std::vector<uint8_t> data_copy = data_;
-
     std::vector<float> ranges(bins, 0);
     for (int i = 0; i < bins; i++) {
       ranges[i] = ((i + 1) * 255.0) / bins;
